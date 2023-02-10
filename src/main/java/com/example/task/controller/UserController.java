@@ -1,6 +1,7 @@
 package com.example.task.controller;
 
 import com.example.task.dto.UserDto;
+import com.example.task.exception.CustomException;
 import com.example.task.model.User;
 import com.example.task.repository.UserRepository;
 import com.example.task.service.UserService;
@@ -23,13 +24,18 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id) {
-        User userData = userRepository.getUserById(id);
-        if(userData == null) {
-            return new ResponseEntity<String>("No such user", HttpStatus.BAD_REQUEST);
-        }
+        User userData = userService.getUserById(id);
 
         UserDto user = new UserDto(userData.getName(), userData.getSurname(),
                 userService.getUserAge(userData));
-        return new ResponseEntity<UserDto>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/test/{name}")
+    public ResponseEntity<?> getLink(@PathVariable String name) {
+        if(name.equals("vova")) {
+            throw new CustomException("Vova daun");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("It's OK %s not daun", name));
     }
 }
