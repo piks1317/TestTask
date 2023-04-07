@@ -6,6 +6,7 @@ import com.example.task.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TaskApplication.class)
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase
 public class UserControllerTest {
 
     @Autowired
@@ -30,10 +32,18 @@ public class UserControllerTest {
     @Test
     public void getUserTest() throws Exception {
         createTestUser(1, "Ivan", "Ivanov", "2003-07-26");
+        createTestUser(2, "Vova", "Volodin", "2000-09-30");
+
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/{id}", 2)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value("Vova"));
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/{id}", 1)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("name").value("Ivan"));
     }

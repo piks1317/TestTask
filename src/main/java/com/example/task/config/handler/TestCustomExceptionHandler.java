@@ -17,14 +17,20 @@ import java.time.LocalDate;
 @RestControllerAdvice
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class TestCustomExceptionHandler extends BaseExceptionHandler {
+public class TestCustomExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(CustomException.class)
   public ResponseEntity<ErrorMessage> handleCustomExceptionHandler(
-      Exception exception){
+      Exception exception,
+      HttpServletRequest request){
 
-    final var bodyOfResponse = determineMessage(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    ErrorMessage message = ErrorMessage.builder()
+        .status(HttpStatus.BAD_REQUEST.value())
+        .description(exception.getMessage())
+        .timestamp(LocalDate.now())
+        .url(request.getRequestURL().toString())
+        .build();
 
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyOfResponse);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
   }
 }
