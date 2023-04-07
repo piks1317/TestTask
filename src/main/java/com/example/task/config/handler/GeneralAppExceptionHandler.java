@@ -13,6 +13,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
+/**
+ * Class
+ */
 @RestControllerAdvice
 public class GeneralAppExceptionHandler extends ResponseEntityExceptionHandler {
 
