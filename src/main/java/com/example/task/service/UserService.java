@@ -6,6 +6,7 @@ import com.example.task.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -32,4 +33,7 @@ public class UserService {
         return user;
     }
 
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
 }
