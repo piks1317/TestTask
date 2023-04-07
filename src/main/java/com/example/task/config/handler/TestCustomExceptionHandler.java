@@ -23,7 +23,7 @@ public class TestCustomExceptionHandler extends BaseExceptionHandler {
   public ResponseEntity<ErrorMessage> handleCustomExceptionHandler(
       Exception exception){
 
-    final var bodyOfResponse = determineMessage(exception.getMessage(), HttpStatus.BAD_REQUEST);
+      final var bodyOfResponse = determineMessage(exception.getMessage(), HttpStatus.BAD_REQUEST);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyOfResponse);
   }
