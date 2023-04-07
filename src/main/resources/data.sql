@@ -1,5 +1,5 @@
-insert into users (name, surname, birth_date) values ('Name1', 'Surname1', '2001-06-20');
-insert into users (name, surname, birth_date) values ('Name2', 'Surname2', '2001-06-20');
-insert into users (name, surname, birth_date) values ('Name3', 'Surname3', '2001-06-20');
-insert into users (name, surname, birth_date) values ('Name4', 'Surname4', '2001-06-20');
-
+INSERT INTO users (name, surname, birth_date) VALUES ('Ivan', 'Ivanov', '2003-07-26');
+INSERT INTO users (name, surname, birth_date) VALUES ('Edna', 'Welch', '1998-10-13');
+INSERT INTO users (name, surname, birth_date) VALUES ('Brian', 'Hansen', '2001-04-29');
+INSERT INTO users (name, surname, birth_date) VALUES ('Robyn', 'Larson', '2000-06-22');
+INSERT INTO users (name, surname, birth_date) VALUES ('Emanuel', 'Jefferson', '2003-12-13');
